@@ -26,19 +26,19 @@ const exampleData = {
     Tel: '00 00 00'
   },
 
-  Unités: [
+  Unites: [
     {
       Description: 'Prestation chouette',
-      Coût: 35,
-      Quantité: 3,
-      Unité: "fun",
+      Prix: 35,
+      Quantite: 3,
+      Unite: "fun",
       Total: 105,
     },
     {
       Description: 'Prestation incroyable',
-      Coût: 30,
-      Quantité: 17,
-      Unité: "joie",
+      Prix: 30,
+      Quantite: 17,
+      Unite: "joie",
       Total: 510,
     },
   ],
