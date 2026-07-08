@@ -154,7 +154,7 @@ function updateInvoice(row) {
     // Add some guidance about columns.
     const want = new Set(Object.keys(addDemo({})));
     const accepted = new Set(['References']);
-    const importance = ['ID', 'Utilisateurs', 'Unités', 'Total', 'Prestataire', 'Date', 
+    const importance = ['ID', 'Utilisateurs', 'Unites', 'Total', 'Prestataire', 'Date', 
                         'TotalHT', 'TVA'];
     if (!('Date' in row)) {
       const seen = new Set(Object.keys(row).filter(k => k !== 'id' && k !== '_error_'));
@@ -172,15 +172,15 @@ function updateInvoice(row) {
       if (recognized.length > 0) {
         help.recognized = prepareList(recognized);
       }
-      if (!seen.has('References') && !(row.Issued || row.Due)) {
+      if (!seen.has('References') && !(row.Date)) {
         row.SuggestReferencesColumn = true;
       }
     }
     addDemo(row);
-    if (!row.TotalHT && !row.Total && row.Unités && Array.isArray(row.Unités)) {
+    if (!row.TotalHT && !row.Total && row.Unites && Array.isArray(row.Unites)) {
       try {
-        row.TotalHT = row.Unités.reduce((a, b) => a + b.Coût * b.Quantité, 0);
-        row.TVA = row.TotalHT * row.TVA
+        row.TotalHT = row.Unites.reduce((a, b) => a + b.Prix * b.Quantite, 0);
+        row.TVA = row.TotalHT * 0.2
         row.Total = row.TotalHT + (row.TVA || 0);
       } catch (e) {
         console.error(e);
