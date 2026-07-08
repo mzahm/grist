@@ -40,21 +40,21 @@ function addDemo(row) {
       Tel: 'Utilisateur.Tel'
     }
   }
-  if (!row.Unités) {
-    row.Unités = [
+  if (!row.Unites) {
+    row.Unites = [
       {
-        Description: 'Unités[0].Description',
-        Quantité: '.Quantité',
-        Unité: '.Unité',
+        Description: 'Unites[0].Description',
+        Quantite: '.Quantite',
+        Unite: '.Unite',
         Total: '.Total',
-        Coût: '.Coût'
+        Prix: '.Prix'
       },
       {
-        Description: 'Unités[1].Description',
-        Quantité: '.Quantité',
-        Unité: '.Unité',
+        Description: 'Unites[1].Description',
+        Quantite: '.Quantite',
+        Unite: '.Unite',
         Total: '.Total',
-        Coût: '.Coût'
+        Prix: '.Prix'
       },
     ];
   }
