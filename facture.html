@@ -1,0 +1,168 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Facturation Grist</title>
+
+    <!-- A template for showing an invoice in a Custom Widget in Grist. -->
+    <!-- Uses Vue.js, moment, and the Grist Plugin API -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.3/vue.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
+    <script src="https://docs.getgrist.com/grist-plugin-api.js"></script>
+
+    <script src="facture.js?ver=11"></script>
+    <script src="exampleData.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app" class="invoice-container">
+        <div class="status" v-if="status">
+        <template v-if="status === 'waiting'">
+          <p>Waiting for data...</p>
+          <ul>
+            <li v-bind:class="[tableConnected ? 'done' : '']">I need <b>read table</b> access.</li>
+            <li v-bind:class="[haveRows ? 'done' : '']">I need at least one row of data.</li>
+            <li v-bind:class="[rowConnected ? 'done' : '']">I need <b>Select By</b> set.</li>
+          </ul>
+          <p>Examples:</p>
+          <ul>
+            <li><a class="button" href="facture.html?demo=1">A filled out invoice</a></li>
+            <li><a class="button" href="facture.html?labels=1">A labelled invoice</a></li>
+          </ul>
+        </template>
+        <template v-else>
+          {{ status }}
+        </template>
+        </div>
+        <div class="invoice" v-if="invoice">
+        <template v-if="invoice">
+            <div class="header">
+                <div class="logo">
+                    <img src="Infinity.jpg" alt="Logo" class="logo-inf">
+                    <img src="INSERM.png" alt="Logo" class="logo-inserm">
+                    <img src="CNRS.png" alt="Logo" class="logo-cnrs">
+                    <img src="UT.png" alt="Logo" class="logo-UT">
+                </div>
+                <div class="invoice-title">FACTURE</div>
+            </div>
+
+            <div class="invoice-details">
+                <div class="date-section">
+                    <div><strong>DATE :</strong> {{ invoice.Date | asDate }}</div>
+                </div>
+                <div class="project-section">
+                    <div><strong>PROJET :</strong> {{ invoice.Projet }}</div>
+                </div>
+                <div class="invoice-number">
+                    <div><strong>FACTURE N°:</strong> {{ invoice.ID }}</div>
+                </div>
+            </div>
+
+            <div class="address-section">
+                <div class="sender" v-for="business in (invoice.Prestataire ? [invoice.Prestataire] : [])">
+                    <div><strong>FOURNISSEUR :</strong></div>
+                    <template v-if="typeof(business) === 'string'">
+                        <div class="address newlined">{{ business }}</div>
+                    </template>
+                    <template v-else>
+                        <div>{{ business.Nom }}</div>
+                        <div>{{ business.Rue1 }}</div>
+                        <template v-if="business.Rue2">
+                            <div>{{ business.Rue2 }}</div>
+                        </template>
+                        <div>{{ business.CP }} {{ business.Ville }}</div>
+                        <template v-if="business.Email">
+                            <div class="email">{{ business.Email }}</div>
+                        </template>
+                        <template v-if="business.Tel">
+                            <div class="phone">{{ business.Tel }}</div>
+                        </template>
+                    </template>
+                </div>
+
+                <div class="receiver" v-for="user in (invoice.Utilisateur ? [invoice.Utilisateur] : [])">
+                    <div><strong>UTILISATEUR :</strong></div>
+                    <template v-if="typeof(user) === 'string'">
+                        <div class="newlined">{{ user }}</div>
+                    </template>
+                    <template v-else>
+                        <div>{{ user.Nom }}</div>
+                        <div>{{ user.Equipe }}</div>
+                        <div>{{ user.Institut }}</div>
+                        <template v-if="user.Rue">
+                            <div>{{ user.Rue }}</div>
+                        </template>
+                        <div>{{ user.CP }} {{ user.Ville }}</div>
+                        <template v-if="user.Email">
+                            <div class="email">{{ user.Email }}</div>
+                        </template>
+                        <template v-if="user.Tel">
+                            <div class="phone">{{ user.Tel }}</div>
+                        </template>
+                    </template>
+                </div>
+            </div>
+
+            <div class="invoice-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Description</th>
+                            <th>Coût unitaire</th>
+                            <th>Quantité</th>
+                            <th>Unité</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="item in invoice.Unités">
+                            <td>{{ item.Description }}</td>
+                            <td class="money">{{ item.Coût | currency }}</td>
+                            <td class="number">{{ item.Quantité }}</td>
+                            <td class="number">{{ item.Unité }}</td>
+                            <td class="money">{{ item.Total | currency }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="total-section">
+                <div class="total-row">
+                    <span>TOTAL HT :</span>
+                    <span>{{ invoice.TotalHT | currency }}</span>
+                </div>
+                <div class="total-row">
+                    <span>TVA 20% :</span>
+                    <span>{{ invoice.TVA | currency }}</span>
+                </div>
+                <div class="total-row total-ttc">
+                    <span>TOTAL TTC :</span>
+                    <span>{{ invoice.Total | currency }}</span>
+                </div>
+            </div>
+
+            <div class="payment-info">
+                <div><strong>RÈGLEMENT PAR BON DE COMMANDE :</strong></div>
+                    <div class="invoice-table">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Adresse fournisseur</th>
+                            <th>Adresse d'envoi</th>
+                        </tr>
+                    </thead>
+                        <tbody>
+                            <tr>
+                                <td> {{ invoice.adresse_fournisseur_bc }} </td>
+                                <td> {{ invoice.adresse_envoi_bc }} </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </template>
+        </div>
+    </div>
+</body>
+</html>
