@@ -55,7 +55,7 @@
                     <div><strong>PROJET :</strong> {{ invoice.Projet }}</div>
                 </div>
                 <div class="invoice-number">
-                    <div><strong>FACTURE N°:</strong> {{ invoice.ID }}</div>
+                    <div><strong>FACTURE N°:</strong> {{ invoice.ID2 }}</div>
                 </div>
             </div>
 
@@ -116,11 +116,11 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="item in invoice.Unités">
+                        <tr v-for="item in invoice.Unites">
                             <td>{{ item.Description }}</td>
-                            <td class="money">{{ item.Coût | currency }}</td>
-                            <td class="number">{{ item.Quantité }}</td>
-                            <td class="number">{{ item.Unité }}</td>
+                            <td class="money">{{ item.Prix | currency }}</td>
+                            <td class="number">{{ item.Quantite }}</td>
+                            <td class="number">{{ item.Unite }}</td>
                             <td class="money">{{ item.Total | currency }}</td>
                         </tr>
                     </tbody>
