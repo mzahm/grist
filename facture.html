@@ -154,8 +154,8 @@
                     </thead>
                         <tbody>
                             <tr>
-                                <td> {{ invoice.adresse_fournisseur_bc }} </td>
-                                <td> {{ invoice.adresse_envoi_bc }} </td>
+                                <td v-html="invoice.adresse_fournisseur_bc"></td>
+                                <td v-html="invoice.adresse_envoi_bc"></td>
                             </tr>
                         </tbody>
                     </table>
