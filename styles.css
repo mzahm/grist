@@ -1,0 +1,134 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+.invoice-container {
+    width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo-inf {
+    width: 30%;
+    height: 30%;
+    margin-right: 10px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+}
+
+.logo-inserm {
+    width: 20%;
+    height: 20%;
+    margin-right: 10px;
+    background-color: #ffffff;
+    border: 1px solid #ffffff;
+}
+
+.logo-cnrs {
+    width: 10%;
+    height: 10%;
+    margin-right: 10px;
+    background-color: #ffffff;
+    border: 1px solid #ffffff;
+}
+
+.logo-UT {
+    width: 25%;
+    height: 25%;
+    margin-right: 10px;
+    background-color: #ffffff;
+    border: 1px solid #ffffff;
+}
+
+.invoice-title {
+    font-size: 48px;
+    font-weight: bold;
+    color: #000;
+}
+
+.invoice-details {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.address-section {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.sender, .receiver {
+    flex: 1;
+}
+
+.invoice-table table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.invoice-table th, .invoice-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.invoice-table th {
+    background-color: #f2f2f2;
+}
+
+.total-section {
+    text-align: right;
+    margin-bottom: 20px;
+}
+
+.total-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+
+.total-ttc {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.payment-info {
+    margin-bottom: 20px;
+}
+
+.footer {
+    font-size: 12px;
+    color: #666;
+    text-align: center;
+}
+
+.phone::before {
+  content: "\260e";
+  margin-right: 0.5em;
+}
+
+.email::before {
+  content: "\2709";
+  margin-right: 0.5em;  
+}
