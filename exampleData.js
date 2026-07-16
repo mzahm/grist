@@ -4,6 +4,7 @@ const exampleData = {
   Date: Date.parse('2020-10-12') / 1000,
   adresse_fournisseur_bc: "Beau fournisseur",
   adresse_envoi_bc: "Belle adresse envoi du bc",
+  note: "Attention faut payer hein",
 
   Prestataire: {
     Nom: 'Superbe entreprise',
