@@ -118,7 +118,7 @@
                     <tbody>
                         <tr v-for="item in invoice.Unites">
                             <td>{{ item.Description }}</td>
-                            <td class="money">{{ item.Cout | currency }}</td>
+                            <td class="money">{{ item.Prix | currency }}</td>
                             <td class="number">{{ item.Quantite }}</td>
                             <td class="number">{{ item.Unite }}</td>
                             <td class="money">{{ item.Total | currency }}</td>
